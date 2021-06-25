@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
         addItems()
         initRecycler()
+        viewModel.getRequest()
 
         binding.appBarMain.btnOpen.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
