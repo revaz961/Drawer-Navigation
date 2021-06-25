@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun init(){
+        observes()
         setSupportActionBar(binding.appBarMain.toolbar)
         addItems()
         initRecycler()
