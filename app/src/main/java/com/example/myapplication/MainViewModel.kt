@@ -4,21 +4,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
-class MainViewModel: ViewModel() {
+class MainViewModel : ViewModel() {
     private val _liveData = MutableLiveData<String>()
-    val liveData:LiveData<String> = _liveData
+    val liveData: LiveData<String> = _liveData
 
     private var isActive = false
 
-    fun getRequest(){
+    private lateinit var activeJob: Job
+
+    fun getRequest() {
+        isActive = true
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                while(isActive){
+            withContext(Dispatchers.IO) {
+                while (isActive) {
                     request()
                     delay(5000)
                 }
@@ -26,7 +26,11 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    suspend fun request(){
+    fun cancelRequest(){
+        isActive = false
+    }
+
+    private suspend fun request() {
         _liveData.postValue("request")
     }
 }
