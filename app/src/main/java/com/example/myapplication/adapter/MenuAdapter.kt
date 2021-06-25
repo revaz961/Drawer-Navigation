@@ -1,6 +1,5 @@
-package com.example.myapplication
+package com.example.myapplication.adapter
 
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,15 +43,15 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
             binding.tvTitle.text = model.title
             if (adapterPosition == activePosition) {
                 binding.active.visibility = View.VISIBLE
-                binding.root.setBackgroundResource(R.color.purple_500)
+                binding.root.setBackgroundResource(android.R.color.holo_purple)
             }else{
                 binding.active.visibility = View.INVISIBLE
                 binding.root.setBackgroundResource(R.color.white)
             }
             binding.root.setOnClickListener {
                 activePosition = adapterPosition
-                notifyDataSetChanged()
                 click(adapterPosition)
+                notifyDataSetChanged()
             }
         }
     }
